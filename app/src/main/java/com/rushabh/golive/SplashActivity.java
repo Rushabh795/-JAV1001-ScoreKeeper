@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 public class SplashActivity extends AppCompatActivity {
-
+//This is launch Activity.It is going to show 3 seconds
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -17,8 +17,10 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+
                 //This method will be executed once the timer is over
                 // Start your app main activity
+                //Redirect to Splash Activity to our main Activity
                 Intent i = new Intent(SplashActivity.this, MainActivity.class);
                 startActivity(i);
                 // close this activity

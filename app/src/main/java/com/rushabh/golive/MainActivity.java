@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void bindID() {
+        //bind all the ids
         tvScoreTeamOne = (TextView) findViewById(R.id.tvScoreTeamOne);
         tvScoreTeamOneFinal = (TextView) findViewById(R.id.tvScoreTeamOneFinal);
         tvScoreTeamTwoFinal = (TextView) findViewById(R.id.tvScoreTeamTwoFinal);
@@ -48,11 +49,12 @@ public class MainActivity extends AppCompatActivity {
         btAdd = (Button) findViewById(R.id.btAdd);
         btDes = (Button) findViewById(R.id.btDes);
         setID();
-
+//Using switch decide which side of teams is selected
         switchChange.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
+
                     stTeam = "TEAMB";
 
                 } else {
@@ -63,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         rgScore.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            //radiogroup will check which radio button is used
             @Override
             public void onCheckedChanged(RadioGroup group, int i) {
                 int checkedID = rgScore.getCheckedRadioButtonId();
@@ -84,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         btAdd.setOnClickListener(new View.OnClickListener() {
+            //Add button going to add score
             @Override
             public void onClick(View v) {
                 setNewGoalScore(stTeam, inGoal, "add");
@@ -96,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         imgAddscoreTeamOne.setOnClickListener(new View.OnClickListener() {
+            //add one goal into Team A
             @Override
             public void onClick(View v) {
                 String oldScore = tvScoreTeamOne.getText().toString();
@@ -105,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         imgSubscoreTeamOne.setOnClickListener(new View.OnClickListener() {
+            //minus one goal into Team A
             @Override
             public void onClick(View v) {
                 String oldScore = tvScoreTeamOne.getText().toString();
@@ -116,6 +122,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         imgAddscoreTeamTwo.setOnClickListener(new View.OnClickListener() {
+            //add one goal into Team B
             @Override
             public void onClick(View v) {
                 String oldScore = tvScoreTeamTwo.getText().toString();
@@ -130,6 +137,7 @@ public class MainActivity extends AppCompatActivity {
         imgSubscoreTeamTwo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //minus score of team 2
                 String oldScore = tvScoreTeamTwo.getText().toString();
                 int intNewScore = Integer.parseInt(oldScore) - 1;
                 tvScoreTeamTwo.setText(String.valueOf(intNewScore));
@@ -140,6 +148,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setID() {
+        //first time set default value into textbox (default goals)
         tvScoreTeamOne.setText("1");
         tvScoreTeamOneFinal.setText("1");
         tvScoreTeamTwo.setText("2");
@@ -149,13 +158,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setNewGoalScore(String stTeam, int i, String stButton) {
+        //this method is used for add and minus goals accordind to user selection
         if (stTeam == "TEAMA") {
             if (stButton == "add") {
+                //add team A goals and set value into textview
                 String oldScore = tvScoreTeamOne.getText().toString();
                 int intNewScore = Integer.parseInt(oldScore) + i;
                 tvScoreTeamOne.setText(String.valueOf(intNewScore));
                 tvScoreTeamOneFinal.setText(String.valueOf(intNewScore));
             } else {
+                //Minus Team A goals and set value into textview
                 String oldScore = tvScoreTeamOne.getText().toString();
                 int intNewScore = Integer.parseInt(oldScore) - i;
                 tvScoreTeamOne.setText(String.valueOf(intNewScore));
@@ -163,12 +175,14 @@ public class MainActivity extends AppCompatActivity {
             }
         } else {
             if (stButton == "add") {
+                //Add team B goals and set value into textview
                 String oldScore = tvScoreTeamTwo.getText().toString();
                 int intNewScore = Integer.parseInt(oldScore) + i;
                 tvScoreTeamTwo.setText(String.valueOf(intNewScore));
                 tvScoreTeamTwoFinal.setText(String.valueOf(intNewScore));
 
             } else {
+                //Minus Team B goals and set value into textview
                 String oldScore = tvScoreTeamTwo.getText().toString();
                 int intNewScore = Integer.parseInt(oldScore) - i;
                 tvScoreTeamTwo.setText(String.valueOf(intNewScore));
