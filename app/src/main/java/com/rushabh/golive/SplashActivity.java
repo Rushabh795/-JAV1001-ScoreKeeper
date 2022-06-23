@@ -2,7 +2,9 @@ package com.rushabh.golive;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -17,7 +19,7 @@ public class SplashActivity extends AppCompatActivity {
             public void run() {
                 //This method will be executed once the timer is over
                 // Start your app main activity
-                Intent i = new Intent(SplashScreenActivity.this, MainActivity.class);
+                Intent i = new Intent(SplashActivity.this, MainActivity.class);
                 startActivity(i);
                 // close this activity
                 finish();
@@ -27,4 +29,3 @@ public class SplashActivity extends AppCompatActivity {
 
     }
 
-}
