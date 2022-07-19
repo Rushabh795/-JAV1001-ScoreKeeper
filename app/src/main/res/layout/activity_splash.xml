@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    tools:context=".SplashActivity"
-    android:background="@drawable/ic_main_bg">
+    android:background="@drawable/ic_main_bg"
+    tools:context=".SplashActivity">
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -13,11 +13,11 @@
         android:orientation="vertical"
         android:weightSum="1"
         tools:ignore="MissingConstraints">
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.3">
-    </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.3"></LinearLayout>
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -38,24 +38,25 @@
             android:layout_width="fill_parent"
             android:layout_height="0dp"
             android:layout_gravity="center"
+            android:layout_weight="0.3"
             android:gravity="center"
-            android:orientation="vertical"
-            android:layout_weight="0.3">
+            android:orientation="vertical">
+
             <TextView
                 android:layout_width="fill_parent"
-                android:gravity="center"
-                android:textSize="20dp"
-                android:layout_gravity="center"
                 android:layout_height="wrap_content"
-android:text="GO &amp; Live">
-            </TextView>
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="@string/go_amp_live"
+                android:textSize="20dp"></TextView>
+
             <TextView
                 android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:textSize="20dp"
-                android:layout_height="wrap_content"
-                android:text="PowerdBy Rushabh Shah">
+                android:text="@string/powerdby_rushabh_shah"
+                android:textSize="20dp">
 
             </TextView>
         </LinearLayout>

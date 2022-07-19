@@ -1,6 +1,7 @@
 package com.rushabh.golive;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import android.view.View;
 import android.os.Bundle;
@@ -15,12 +16,12 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
     TextView tvScoreTeamOne, tvScoreTeamOneFinal, tvScoreTeamTwoFinal, tvScoreTeamTwo, tvTeamName;
     ImageView imgAddscoreTeamOne, imgSubscoreTeamOne, imgAddscoreTeamTwo, imgSubscoreTeamTwo;
-    Switch switchChange;
+    Switch switchChange, swNightMode;
     RadioButton rbTwoGoal, rbThreeGoal, rbFourGoal, rbFiveGoal;
     RadioGroup rgScore;
     Button btDes, btAdd;
     int inGoal = 2;
-    String stTeam="TEAMA";
+    String stTeam = "TEAMA";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         imgAddscoreTeamTwo = (ImageView) findViewById(R.id.imgAddscoreTeamTwo);
         imgSubscoreTeamTwo = (ImageView) findViewById(R.id.imgSubscoreTeamTwo);
         switchChange = (Switch) findViewById(R.id.switchChange);
+        swNightMode = findViewById(R.id.swNightMode);
         rbTwoGoal = (RadioButton) findViewById(R.id.rbTwoGoal);
         rbThreeGoal = (RadioButton) findViewById(R.id.rbThreeGoal);
         rbFourGoal = (RadioButton) findViewById(R.id.rbFourGoal);
@@ -49,6 +51,17 @@ public class MainActivity extends AppCompatActivity {
         btAdd = (Button) findViewById(R.id.btAdd);
         btDes = (Button) findViewById(R.id.btDes);
         setID();
+        //Enable or Disable night mode
+        swNightMode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b) {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                } else {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                }
+            }
+        });
 //Using switch decide which side of teams is selected
         switchChange.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
