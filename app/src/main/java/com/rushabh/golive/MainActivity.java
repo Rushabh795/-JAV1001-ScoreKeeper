@@ -3,6 +3,8 @@ package com.rushabh.golive;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.os.Bundle;
 import android.widget.Button;
@@ -202,5 +204,13 @@ public class MainActivity extends AppCompatActivity {
                 tvScoreTeamTwoFinal.setText(String.valueOf(intNewScore));
             }
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu, menu);
+
+        return true;
     }
 }
