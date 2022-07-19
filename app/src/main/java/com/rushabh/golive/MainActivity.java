@@ -1,10 +1,13 @@
 package com.rushabh.golive;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
+import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.os.Bundle;
 import android.widget.Button;
@@ -14,6 +17,9 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.material.snackbar.Snackbar;
 
 public class MainActivity extends AppCompatActivity {
     TextView tvScoreTeamOne, tvScoreTeamOneFinal, tvScoreTeamTwoFinal, tvScoreTeamTwo, tvTeamName;
@@ -212,5 +218,27 @@ public class MainActivity extends AppCompatActivity {
         menuInflater.inflate(R.menu.menu, menu);
 
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.nav_about:
+                View parentLayout = findViewById(android.R.id.content);
+                Snackbar.make(MainActivity.this.findViewById(android.R.id.content), "Name :- Rushabh Shah \n Student ID :- A00240755", Snackbar.LENGTH_LONG).setAction("Get me a coffee", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Toast.makeText(MainActivity.this, "Thankyou , I appreciate that.", Toast.LENGTH_SHORT).show();
+                            }
+                        }).setActionTextColor(getResources().getColor(android.R.color.holo_red_light))
+                        .show();
+                return true;
+            case R.id.nav_settings:
+                startActivity(new Intent(this, SettingActivity.class));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
