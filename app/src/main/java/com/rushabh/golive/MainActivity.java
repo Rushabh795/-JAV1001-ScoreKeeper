@@ -5,6 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -30,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
     Button btDes, btAdd;
     int inGoal = 2;
     String stTeam = "TEAMA";
+    public static final String Shared_Pref = "shared_pref";
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,8 +71,16 @@ public class MainActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (b) {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                    sharedPreferences = getSharedPreferences(Shared_Pref, MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putBoolean("NightModeValue", swNightMode.isChecked());
+                    editor.commit();
                 } else {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                    sharedPreferences = getSharedPreferences(Shared_Pref, MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putBoolean("NightModeValue", swNightMode.isChecked());
+                    editor.commit();
                 }
             }
         });
@@ -170,11 +184,116 @@ public class MainActivity extends AppCompatActivity {
 
     public void setID() {
         //first time set default value into textbox (default goals)
+        sharedPreferences = getSharedPreferences(Shared_Pref, MODE_PRIVATE);
+        boolean nightModeValue = sharedPreferences.getBoolean("NightModeValue", false);
+        if (nightModeValue) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            sharedPreferences = getSharedPreferences(Shared_Pref, MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean("NightModeValue", swNightMode.isChecked());
+            editor.commit();
+
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            sharedPreferences = getSharedPreferences(Shared_Pref, MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean("NightModeValue", swNightMode.isChecked());
+            editor.commit();
+        }
         tvScoreTeamOne.setText("1");
         tvScoreTeamOneFinal.setText("1");
         tvScoreTeamTwo.setText("2");
         tvScoreTeamTwoFinal.setText("2");
 //        tvTeamName.setText("INDIA");
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        sharedPreferences = getSharedPreferences(Shared_Pref, MODE_PRIVATE);
+        boolean nightModeValue = sharedPreferences.getBoolean("NightModeValue", false);
+        if (nightModeValue) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            sharedPreferences = getSharedPreferences(Shared_Pref, MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean("NightModeValue", swNightMode.isChecked());
+            editor.commit();
+
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            sharedPreferences = getSharedPreferences(Shared_Pref, MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean("NightModeValue", swNightMode.isChecked());
+            editor.commit();
+        }
+
+    }
+
+    @Override
+    protected void onPause() {
+        sharedPreferences = getSharedPreferences(Shared_Pref, MODE_PRIVATE);
+        boolean nightModeValue = sharedPreferences.getBoolean("NightModeValue", false);
+        if (nightModeValue) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            sharedPreferences = getSharedPreferences(Shared_Pref, MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean("NightModeValue", swNightMode.isChecked());
+            editor.commit();
+
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            sharedPreferences = getSharedPreferences(Shared_Pref, MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean("NightModeValue", swNightMode.isChecked());
+            editor.commit();
+        }
+
+        super.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        sharedPreferences = getSharedPreferences(Shared_Pref, MODE_PRIVATE);
+        boolean nightModeValue = sharedPreferences.getBoolean("NightModeValue", false);
+        if (nightModeValue) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            sharedPreferences = getSharedPreferences(Shared_Pref, MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean("NightModeValue", swNightMode.isChecked());
+            editor.commit();
+
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            sharedPreferences = getSharedPreferences(Shared_Pref, MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean("NightModeValue", swNightMode.isChecked());
+            editor.commit();
+        }
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        sharedPreferences = getSharedPreferences(Shared_Pref, MODE_PRIVATE);
+        boolean nightModeValue = sharedPreferences.getBoolean("NightModeValue", false);
+        if (nightModeValue) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            sharedPreferences = getSharedPreferences(Shared_Pref, MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean("NightModeValue", swNightMode.isChecked());
+            editor.commit();
+
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            sharedPreferences = getSharedPreferences(Shared_Pref, MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean("NightModeValue", swNightMode.isChecked());
+            editor.commit();
+        }
+
 
     }
 
@@ -216,6 +335,13 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.menu, menu);
+
+        for (int i = 0; i < menu.size(); i++) {
+            MenuItem item = menu.getItem(i);
+            SpannableString spanString = new SpannableString(menu.getItem(i).getTitle().toString());
+            spanString.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.btn_gr_strat)), 0, spanString.length(), 0); //fix the color to white
+            item.setTitle(spanString);
+        }
 
         return true;
     }
