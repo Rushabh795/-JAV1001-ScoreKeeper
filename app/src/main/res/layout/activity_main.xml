@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
+<!-- Main LinearLyout ( devide into 3 parts ) -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/lvMain"
@@ -6,7 +9,7 @@
     android:layout_height="fill_parent"
     android:orientation="vertical"
     android:weightSum="3">
-
+    <!-- Linear Layout Part 1-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -16,7 +19,7 @@
         android:layout_weight="0.3"
         android:gravity="center"
         android:orientation="vertical">
-
+        <!-- TextView Style Added For Lebel -->
         <TextView
             style="@style/stTextViewLabel"
             android:layout_width="match_parent"
@@ -29,7 +32,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:orientation="horizontal">
-
+            <!-- TextView Style Added For Lebel -->
             <TextView
                 style="@style/stTextViewLabel"
                 android:layout_width="wrap_content"
@@ -45,6 +48,7 @@
             </Switch>
         </LinearLayout>
     </LinearLayout>
+    <!-- Linear Layout Part 2-->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -75,7 +79,7 @@
                     android:layout_gravity="center"
                     android:adjustViewBounds="true"
                     android:src="@drawable/spain" />
-
+                <!-- TextView Style Added For Lebel -->
                 <TextView
                     android:id="@+id/tvTeamName"
                     style="@style/stTextViewLabel"
@@ -99,7 +103,7 @@
                     android:gravity="center"
                     android:padding="5dp"
                     android:src="@drawable/baseline_remove_circle_24" />
-
+                <!-- TextView Style Added For Custom Text -->
                 <TextView
                     android:id="@+id/tvScoreTeamOne"
                     style="@style/stCustomTextView"
@@ -119,7 +123,7 @@
 
             </LinearLayout>
         </LinearLayout>
-
+        <!-- TextView Style Added For Custom Text -->
         <TextView
             android:id="@+id/tvScoreTeamOneFinal"
             style="@style/stCustomTextView"
@@ -127,14 +131,14 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.45"
             android:text="@string/_3" />
-
+<!-- TextView Style Added For Lebel -->
         <TextView
             style="@style/stTextViewLabel"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.1"
             android:text="@string/difference" />
-
+        <!-- TextView Style Added For Custom Text -->
         <TextView
             android:id="@+id/tvScoreTeamTwoFinal"
             style="@style/stCustomTextView"
@@ -165,7 +169,7 @@
                     android:layout_gravity="center"
                     android:adjustViewBounds="true"
                     android:src="@drawable/brazil" />
-
+                <!-- TextView Style Added For Lebel -->
                 <TextView
                     style="@style/stTextViewLabel"
                     android:layout_width="match_parent"
@@ -190,7 +194,7 @@
                     android:gravity="center"
                     android:padding="5dp"
                     android:src="@drawable/baseline_remove_circle_24" />
-
+                <!-- TextView Style Added For Custom -->
                 <TextView
                     android:id="@+id/tvScoreTeamTwo"
                     style="@style/stCustomTextView"
@@ -211,6 +215,7 @@
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
+    <!-- Linear Layout Part 3-->
 
 
     <LinearLayout
@@ -228,7 +233,7 @@
             android:gravity="center"
             android:orientation="horizontal"
             android:weightSum="3">
-
+            <!-- TextView Style Added For Lebel -->
             <TextView
                 style="@style/stTextViewLabel"
                 android:layout_width="0dp"
@@ -243,7 +248,7 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:gravity="center"></Switch>
-
+            <!-- TextView Style Added For Lebel -->
             <TextView
                 style="@style/stTextViewLabel"
                 android:layout_width="0dp"
@@ -309,7 +314,7 @@
             android:orientation="horizontal"
             android:layout_marginTop="10dp"
             android:weightSum="1">
-
+            <!-- Buttom Style Added -->
             <Button
                 android:id="@+id/btAdd"
                 style="@style/stButton"
@@ -317,7 +322,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:text="@string/add_goal"></Button>
-
+            <!-- Buttom Style Added -->
             <Button
                 android:id="@+id/btDes"
                 style="@style/stButton"
