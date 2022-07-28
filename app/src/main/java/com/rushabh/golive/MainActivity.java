@@ -90,11 +90,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-
+SharedPrefManager.putInt("switchTeam",0);
                     stTeam = "TEAMB";
 
                 } else {
                     stTeam = "TEAMA";
+                    SharedPrefManager.putInt("switchTeam",1);
+
                 }
             }
         });
@@ -108,15 +110,21 @@ public class MainActivity extends AppCompatActivity {
                 switch (checkedID) {
                     case R.id.rbTwoGoal:
                         inGoal = 2;
+                        SharedPrefManager.putInt("radioGoal",2);
                         break;
                     case R.id.rbThreeGoal:
                         inGoal = 3;
+                        SharedPrefManager.putInt("radioGoal",3);
+
                         break;
                     case R.id.rbFourGoal:
                         inGoal = 4;
+                        SharedPrefManager.putInt("radioGoal",4);
+
                         break;
                     case R.id.rbFiveGoal:
                         inGoal = 5;
+                        SharedPrefManager.putInt("radioGoal",5);
                         break;
                 }
             }
@@ -213,10 +221,37 @@ public class MainActivity extends AppCompatActivity {
     private void setData() {
         int itSaveData = SharedPrefManager.getInt("Data_save", 1);
         if (itSaveData == 0) {
+           int switchTeam = SharedPrefManager.getInt("switchTeam",1);
+            int radioGoal = SharedPrefManager.getInt("radioGoal",2);
             String strTeamOneFinalScore = SharedPrefManager.getString("TeamOneFinalScore", "0");
             String strTeamTwoFinalScore = SharedPrefManager.getString("TeamTwoFinalScore", "0");
             String strTeamOneScore = SharedPrefManager.getString("TeamOneScore", "0");
             String strTeamTwoScore = SharedPrefManager.getString("TeamTwoScore", "0");
+          if(switchTeam == 1)
+          {
+              switchChange.setChecked(false);
+          }else
+          {
+              switchChange.setChecked(true);
+          }
+
+          if (radioGoal == 2)
+          {
+              rgScore.check(R.id.rbTwoGoal);
+          }else if (radioGoal == 3)
+          {
+              rgScore.check(R.id.rbThreeGoal);
+
+          }else if (radioGoal == 4)
+          {              rgScore.check(R.id.rbFourGoal);
+
+
+          }else
+          {
+              rgScore.check(R.id.rbFiveGoal);
+
+          }
+
             tvScoreTeamOne.setText(strTeamOneScore);
             tvScoreTeamOneFinal.setText(strTeamOneFinalScore);
             tvScoreTeamTwo.setText(strTeamTwoScore);
@@ -235,6 +270,7 @@ public class MainActivity extends AppCompatActivity {
             tvScoreTeamOneFinal.setText(strTeamOneFinalScore);
             tvScoreTeamTwo.setText(strTeamTwoScore);
             tvScoreTeamTwoFinal.setText(strTeamTwoFinalScore);
+            rgScore.check(R.id.rbTwoGoal);
         }
     }
 //
