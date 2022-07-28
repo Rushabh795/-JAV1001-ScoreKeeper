@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Switch;
@@ -34,8 +35,7 @@ public class MainActivity extends AppCompatActivity {
     Button btDes, btAdd;
     int inGoal = 2;
     String stTeam = "TEAMA";
-    public static final String Shared_Pref = "shared_pref";
-    SharedPreferences sharedPreferences;
+    LinearLayout lvMain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,23 +64,24 @@ public class MainActivity extends AppCompatActivity {
         rgScore = (RadioGroup) findViewById(R.id.rgScore);
         btAdd = (Button) findViewById(R.id.btAdd);
         btDes = (Button) findViewById(R.id.btDes);
-        setID();
+        lvMain = findViewById(R.id.lvMain);
+        SharedPrefManager.init(MainActivity.this);
+        setNightMode();
         //Enable or Disable night mode
         swNightMode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (b) {
+                    lvMain.setBackgroundColor(getResources().getColor(R.color.black));
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                    sharedPreferences = getSharedPreferences(Shared_Pref, MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putBoolean("NightModeValue", swNightMode.isChecked());
-                    editor.commit();
+                    SharedPrefManager.putInt("night_mode", 0);
+
                 } else {
+
+                    lvMain.setBackgroundColor(getResources().getColor(R.color.white));
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                    sharedPreferences = getSharedPreferences(Shared_Pref, MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putBoolean("NightModeValue", swNightMode.isChecked());
-                    editor.commit();
+                    SharedPrefManager.putInt("night_mode", 1);
+
                 }
             }
         });
@@ -142,6 +143,9 @@ public class MainActivity extends AppCompatActivity {
                 int intNewScore = Integer.parseInt(oldScore) + 1;
                 tvScoreTeamOne.setText(String.valueOf(intNewScore));
                 tvScoreTeamOneFinal.setText(String.valueOf(intNewScore));
+                SharedPrefManager.putString("TeamOneFinalScore",(String.valueOf(intNewScore)));
+                SharedPrefManager.putString("TeamOneScore", (String.valueOf(intNewScore)));
+
             }
         });
         imgSubscoreTeamOne.setOnClickListener(new View.OnClickListener() {
@@ -152,6 +156,9 @@ public class MainActivity extends AppCompatActivity {
                 int intNewScore = Integer.parseInt(oldScore) - 1;
                 tvScoreTeamOne.setText(String.valueOf(intNewScore));
                 tvScoreTeamOneFinal.setText(String.valueOf(intNewScore));
+                SharedPrefManager.putString("TeamOneFinalScore", (String.valueOf(intNewScore)));
+                SharedPrefManager.putString("TeamOneScore", (String.valueOf(intNewScore)));
+
 
             }
         });
@@ -164,6 +171,8 @@ public class MainActivity extends AppCompatActivity {
                 int intNewScore = Integer.parseInt(oldScore) + 1;
                 tvScoreTeamTwo.setText(String.valueOf(intNewScore));
                 tvScoreTeamTwoFinal.setText(String.valueOf(intNewScore));
+                SharedPrefManager.putString("TeamTwoFinalScore", (String.valueOf(intNewScore)));
+                SharedPrefManager.putString("TeamTwoScore",  (String.valueOf(intNewScore)));
 
             }
         });
@@ -177,125 +186,84 @@ public class MainActivity extends AppCompatActivity {
                 int intNewScore = Integer.parseInt(oldScore) - 1;
                 tvScoreTeamTwo.setText(String.valueOf(intNewScore));
                 tvScoreTeamTwoFinal.setText(String.valueOf(intNewScore));
+                SharedPrefManager.putString("TeamTwoFinalScore", (String.valueOf(intNewScore)));
+                SharedPrefManager.putString("TeamTwoScore", (String.valueOf(intNewScore)));
 
             }
         });
     }
 
-    public void setID() {
-        //first time set default value into textbox (default goals)
-        sharedPreferences = getSharedPreferences(Shared_Pref, MODE_PRIVATE);
-        boolean nightModeValue = sharedPreferences.getBoolean("NightModeValue", false);
-        if (nightModeValue) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-            sharedPreferences = getSharedPreferences(Shared_Pref, MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putBoolean("NightModeValue", swNightMode.isChecked());
-            editor.commit();
 
+    private void setNightMode() {
+
+        int isDavaSave = SharedPrefManager.getInt("night_mode", 1);
+        if (isDavaSave == 0) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            SharedPrefManager.putInt("night_mode", 0);
+            swNightMode.setChecked(true);
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-            sharedPreferences = getSharedPreferences(Shared_Pref, MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putBoolean("NightModeValue", swNightMode.isChecked());
-            editor.commit();
+            SharedPrefManager.putInt("night_mode", 1);
+            swNightMode.setChecked(false);
         }
-        tvScoreTeamOne.setText("1");
-        tvScoreTeamOneFinal.setText("1");
-        tvScoreTeamTwo.setText("2");
-        tvScoreTeamTwoFinal.setText("2");
-//        tvTeamName.setText("INDIA");
+        setData();
 
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        sharedPreferences = getSharedPreferences(Shared_Pref, MODE_PRIVATE);
-        boolean nightModeValue = sharedPreferences.getBoolean("NightModeValue", false);
-        if (nightModeValue) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-            sharedPreferences = getSharedPreferences(Shared_Pref, MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putBoolean("NightModeValue", swNightMode.isChecked());
-            editor.commit();
+    private void setData() {
+        int itSaveData = SharedPrefManager.getInt("Data_save", 1);
+        if (itSaveData == 0) {
+            String strTeamOneFinalScore = SharedPrefManager.getString("TeamOneFinalScore", "0");
+            String strTeamTwoFinalScore = SharedPrefManager.getString("TeamTwoFinalScore", "0");
+            String strTeamOneScore = SharedPrefManager.getString("TeamOneScore", "0");
+            String strTeamTwoScore = SharedPrefManager.getString("TeamTwoScore", "0");
+            tvScoreTeamOne.setText(strTeamOneScore);
+            tvScoreTeamOneFinal.setText(strTeamOneFinalScore);
+            tvScoreTeamTwo.setText(strTeamTwoScore);
+            tvScoreTeamTwoFinal.setText(strTeamTwoFinalScore);
 
         } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-            sharedPreferences = getSharedPreferences(Shared_Pref, MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putBoolean("NightModeValue", swNightMode.isChecked());
-            editor.commit();
+            SharedPrefManager.putString("TeamOneFinalScore", "0");
+            SharedPrefManager.putString("TeamTwoFinalScore", "0");
+            SharedPrefManager.putString("TeamOneScore", "0");
+            SharedPrefManager.putString("TeamTwoScore", "0");
+            String strTeamOneFinalScore = SharedPrefManager.getString("TeamOneFinalScore", "0");
+            String strTeamTwoFinalScore = SharedPrefManager.getString("TeamTwoFinalScore", "0");
+            String strTeamOneScore = SharedPrefManager.getString("TeamOneScore", "0");
+            String strTeamTwoScore = SharedPrefManager.getString("TeamTwoScore", "0");
+            tvScoreTeamOne.setText(strTeamOneScore);
+            tvScoreTeamOneFinal.setText(strTeamOneFinalScore);
+            tvScoreTeamTwo.setText(strTeamTwoScore);
+            tvScoreTeamTwoFinal.setText(strTeamTwoFinalScore);
         }
-
     }
-
-    @Override
-    protected void onPause() {
-        sharedPreferences = getSharedPreferences(Shared_Pref, MODE_PRIVATE);
-        boolean nightModeValue = sharedPreferences.getBoolean("NightModeValue", false);
-        if (nightModeValue) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-            sharedPreferences = getSharedPreferences(Shared_Pref, MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putBoolean("NightModeValue", swNightMode.isChecked());
-            editor.commit();
-
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-            sharedPreferences = getSharedPreferences(Shared_Pref, MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putBoolean("NightModeValue", swNightMode.isChecked());
-            editor.commit();
-        }
-
-        super.onPause();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        sharedPreferences = getSharedPreferences(Shared_Pref, MODE_PRIVATE);
-        boolean nightModeValue = sharedPreferences.getBoolean("NightModeValue", false);
-        if (nightModeValue) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-            sharedPreferences = getSharedPreferences(Shared_Pref, MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putBoolean("NightModeValue", swNightMode.isChecked());
-            editor.commit();
-
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-            sharedPreferences = getSharedPreferences(Shared_Pref, MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putBoolean("NightModeValue", swNightMode.isChecked());
-            editor.commit();
-        }
-
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        sharedPreferences = getSharedPreferences(Shared_Pref, MODE_PRIVATE);
-        boolean nightModeValue = sharedPreferences.getBoolean("NightModeValue", false);
-        if (nightModeValue) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-            sharedPreferences = getSharedPreferences(Shared_Pref, MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putBoolean("NightModeValue", swNightMode.isChecked());
-            editor.commit();
-
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-            sharedPreferences = getSharedPreferences(Shared_Pref, MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putBoolean("NightModeValue", swNightMode.isChecked());
-            editor.commit();
-        }
-
-
-    }
+//
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        setNightMode();
+//    }
+//
+//    @Override
+//    protected void onPause() {
+//        setNightMode();
+//        super.onPause();
+//    }
+//
+//    @Override
+//    protected void onDestroy() {
+//        super.onDestroy();
+//        setNightMode();
+//
+//    }
+//
+//    @Override
+//    protected void onStop() {
+//        super.onStop();
+//        setNightMode();
+//
+//
+//    }
 
     public void setNewGoalScore(String stTeam, int i, String stButton) {
         //this method is used for add and minus goals accordind to user selection
@@ -306,12 +274,18 @@ public class MainActivity extends AppCompatActivity {
                 int intNewScore = Integer.parseInt(oldScore) + i;
                 tvScoreTeamOne.setText(String.valueOf(intNewScore));
                 tvScoreTeamOneFinal.setText(String.valueOf(intNewScore));
+                SharedPrefManager.putString("TeamOneFinalScore",(String.valueOf(intNewScore)));
+                SharedPrefManager.putString("TeamOneScore", (String.valueOf(intNewScore)));
+
             } else {
                 //Minus Team A goals and set value into textview
                 String oldScore = tvScoreTeamOne.getText().toString();
                 int intNewScore = Integer.parseInt(oldScore) - i;
                 tvScoreTeamOne.setText(String.valueOf(intNewScore));
                 tvScoreTeamOneFinal.setText(String.valueOf(intNewScore));
+                SharedPrefManager.putString("TeamOneFinalScore",(String.valueOf(intNewScore)));
+                SharedPrefManager.putString("TeamOneScore", (String.valueOf(intNewScore)));
+
             }
         } else {
             if (stButton == "add") {
@@ -320,6 +294,9 @@ public class MainActivity extends AppCompatActivity {
                 int intNewScore = Integer.parseInt(oldScore) + i;
                 tvScoreTeamTwo.setText(String.valueOf(intNewScore));
                 tvScoreTeamTwoFinal.setText(String.valueOf(intNewScore));
+                SharedPrefManager.putString("TeamTwoFinalScore",(String.valueOf(intNewScore)));
+                SharedPrefManager.putString("TeamTwoScore", (String.valueOf(intNewScore)));
+
 
             } else {
                 //Minus Team B goals and set value into textview
@@ -327,6 +304,9 @@ public class MainActivity extends AppCompatActivity {
                 int intNewScore = Integer.parseInt(oldScore) - i;
                 tvScoreTeamTwo.setText(String.valueOf(intNewScore));
                 tvScoreTeamTwoFinal.setText(String.valueOf(intNewScore));
+                SharedPrefManager.putString("TeamTwoFinalScore",(String.valueOf(intNewScore)));
+                SharedPrefManager.putString("TeamTwoScore", (String.valueOf(intNewScore)));
+
             }
         }
     }

@@ -41,6 +41,7 @@
     <string name="teamAGoal">3</string>
     <string name="TeamBGoal">4</string>
     <string name="team_a">TEAM A</string>
+    <string name="savedata">Do you want to save Data ?</string>
     <string name="team_2">TEAM 2</string>
     <string name="title">Todays FIFA World Cup Final Match</string>
     <string name="add_goal">Add Goal</string>
