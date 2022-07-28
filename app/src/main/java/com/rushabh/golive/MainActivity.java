@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
         btAdd = (Button) findViewById(R.id.btAdd);
         btDes = (Button) findViewById(R.id.btDes);
         lvMain = findViewById(R.id.lvMain);
+        //Initiate SharedPref Class
         SharedPrefManager.init(MainActivity.this);
         setNightMode();
         //Enable or Disable night mode
@@ -77,7 +78,6 @@ public class MainActivity extends AppCompatActivity {
                     SharedPrefManager.putInt("night_mode", 0);
 
                 } else {
-
                     lvMain.setBackgroundColor(getResources().getColor(R.color.white));
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                     SharedPrefManager.putInt("night_mode", 1);
@@ -90,13 +90,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-SharedPrefManager.putInt("switchTeam",0);
+                    SharedPrefManager.putInt("switchTeam", 0);
                     stTeam = "TEAMB";
-
                 } else {
                     stTeam = "TEAMA";
-                    SharedPrefManager.putInt("switchTeam",1);
-
+                    SharedPrefManager.putInt("switchTeam", 1);
                 }
             }
         });
@@ -110,21 +108,21 @@ SharedPrefManager.putInt("switchTeam",0);
                 switch (checkedID) {
                     case R.id.rbTwoGoal:
                         inGoal = 2;
-                        SharedPrefManager.putInt("radioGoal",2);
+                        SharedPrefManager.putInt("radioGoal", 2);
                         break;
                     case R.id.rbThreeGoal:
                         inGoal = 3;
-                        SharedPrefManager.putInt("radioGoal",3);
+                        SharedPrefManager.putInt("radioGoal", 3);
 
                         break;
                     case R.id.rbFourGoal:
                         inGoal = 4;
-                        SharedPrefManager.putInt("radioGoal",4);
+                        SharedPrefManager.putInt("radioGoal", 4);
 
                         break;
                     case R.id.rbFiveGoal:
                         inGoal = 5;
-                        SharedPrefManager.putInt("radioGoal",5);
+                        SharedPrefManager.putInt("radioGoal", 5);
                         break;
                 }
             }
@@ -151,7 +149,8 @@ SharedPrefManager.putInt("switchTeam",0);
                 int intNewScore = Integer.parseInt(oldScore) + 1;
                 tvScoreTeamOne.setText(String.valueOf(intNewScore));
                 tvScoreTeamOneFinal.setText(String.valueOf(intNewScore));
-                SharedPrefManager.putString("TeamOneFinalScore",(String.valueOf(intNewScore)));
+                //Save the num of goals in SharedPref
+                SharedPrefManager.putString("TeamOneFinalScore", (String.valueOf(intNewScore)));
                 SharedPrefManager.putString("TeamOneScore", (String.valueOf(intNewScore)));
 
             }
@@ -164,6 +163,7 @@ SharedPrefManager.putInt("switchTeam",0);
                 int intNewScore = Integer.parseInt(oldScore) - 1;
                 tvScoreTeamOne.setText(String.valueOf(intNewScore));
                 tvScoreTeamOneFinal.setText(String.valueOf(intNewScore));
+                //Save the num of goals in SharedPref
                 SharedPrefManager.putString("TeamOneFinalScore", (String.valueOf(intNewScore)));
                 SharedPrefManager.putString("TeamOneScore", (String.valueOf(intNewScore)));
 
@@ -179,8 +179,9 @@ SharedPrefManager.putInt("switchTeam",0);
                 int intNewScore = Integer.parseInt(oldScore) + 1;
                 tvScoreTeamTwo.setText(String.valueOf(intNewScore));
                 tvScoreTeamTwoFinal.setText(String.valueOf(intNewScore));
+                //Save the num of goals in SharedPref
                 SharedPrefManager.putString("TeamTwoFinalScore", (String.valueOf(intNewScore)));
-                SharedPrefManager.putString("TeamTwoScore",  (String.valueOf(intNewScore)));
+                SharedPrefManager.putString("TeamTwoScore", (String.valueOf(intNewScore)));
 
             }
         });
@@ -194,6 +195,7 @@ SharedPrefManager.putInt("switchTeam",0);
                 int intNewScore = Integer.parseInt(oldScore) - 1;
                 tvScoreTeamTwo.setText(String.valueOf(intNewScore));
                 tvScoreTeamTwoFinal.setText(String.valueOf(intNewScore));
+                //Save the num of goals in SharedPref
                 SharedPrefManager.putString("TeamTwoFinalScore", (String.valueOf(intNewScore)));
                 SharedPrefManager.putString("TeamTwoScore", (String.valueOf(intNewScore)));
 
@@ -203,7 +205,7 @@ SharedPrefManager.putInt("switchTeam",0);
 
 
     private void setNightMode() {
-
+        //Check weather night mode is on or not
         int isDavaSave = SharedPrefManager.getInt("night_mode", 1);
         if (isDavaSave == 0) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
@@ -214,50 +216,44 @@ SharedPrefManager.putInt("switchTeam",0);
             SharedPrefManager.putInt("night_mode", 1);
             swNightMode.setChecked(false);
         }
+        //call this method to set all the data
         setData();
 
     }
 
     private void setData() {
+        //Set all the data from sharedPref
         int itSaveData = SharedPrefManager.getInt("Data_save", 1);
         if (itSaveData == 0) {
-           int switchTeam = SharedPrefManager.getInt("switchTeam",1);
-            int radioGoal = SharedPrefManager.getInt("radioGoal",2);
+            int switchTeam = SharedPrefManager.getInt("switchTeam", 1);
+            int radioGoal = SharedPrefManager.getInt("radioGoal", 2);
             String strTeamOneFinalScore = SharedPrefManager.getString("TeamOneFinalScore", "0");
             String strTeamTwoFinalScore = SharedPrefManager.getString("TeamTwoFinalScore", "0");
             String strTeamOneScore = SharedPrefManager.getString("TeamOneScore", "0");
             String strTeamTwoScore = SharedPrefManager.getString("TeamTwoScore", "0");
-          if(switchTeam == 1)
-          {
-              switchChange.setChecked(false);
-          }else
-          {
-              switchChange.setChecked(true);
-          }
-
-          if (radioGoal == 2)
-          {
-              rgScore.check(R.id.rbTwoGoal);
-          }else if (radioGoal == 3)
-          {
-              rgScore.check(R.id.rbThreeGoal);
-
-          }else if (radioGoal == 4)
-          {              rgScore.check(R.id.rbFourGoal);
-
-
-          }else
-          {
-              rgScore.check(R.id.rbFiveGoal);
-
-          }
-
+            //set Team switch
+            if (switchTeam == 1) {
+                switchChange.setChecked(false);
+            } else {
+                switchChange.setChecked(true);
+            }
+            //set Radiobutton of totals goals selected
+            if (radioGoal == 2) {
+                rgScore.check(R.id.rbTwoGoal);
+            } else if (radioGoal == 3) {
+                rgScore.check(R.id.rbThreeGoal);
+            } else if (radioGoal == 4) {
+                rgScore.check(R.id.rbFourGoal);
+            } else {
+                rgScore.check(R.id.rbFiveGoal);
+            }
+            //set Data in textview
             tvScoreTeamOne.setText(strTeamOneScore);
             tvScoreTeamOneFinal.setText(strTeamOneFinalScore);
             tvScoreTeamTwo.setText(strTeamTwoScore);
             tvScoreTeamTwoFinal.setText(strTeamTwoFinalScore);
-
         } else {
+            //if user not allowed to save then set default value
             SharedPrefManager.putString("TeamOneFinalScore", "0");
             SharedPrefManager.putString("TeamTwoFinalScore", "0");
             SharedPrefManager.putString("TeamOneScore", "0");
@@ -273,33 +269,6 @@ SharedPrefManager.putInt("switchTeam",0);
             rgScore.check(R.id.rbTwoGoal);
         }
     }
-//
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        setNightMode();
-//    }
-//
-//    @Override
-//    protected void onPause() {
-//        setNightMode();
-//        super.onPause();
-//    }
-//
-//    @Override
-//    protected void onDestroy() {
-//        super.onDestroy();
-//        setNightMode();
-//
-//    }
-//
-//    @Override
-//    protected void onStop() {
-//        super.onStop();
-//        setNightMode();
-//
-//
-//    }
 
     public void setNewGoalScore(String stTeam, int i, String stButton) {
         //this method is used for add and minus goals accordind to user selection
@@ -310,7 +279,8 @@ SharedPrefManager.putInt("switchTeam",0);
                 int intNewScore = Integer.parseInt(oldScore) + i;
                 tvScoreTeamOne.setText(String.valueOf(intNewScore));
                 tvScoreTeamOneFinal.setText(String.valueOf(intNewScore));
-                SharedPrefManager.putString("TeamOneFinalScore",(String.valueOf(intNewScore)));
+                //Save the num of goals in SharedPref
+                SharedPrefManager.putString("TeamOneFinalScore", (String.valueOf(intNewScore)));
                 SharedPrefManager.putString("TeamOneScore", (String.valueOf(intNewScore)));
 
             } else {
@@ -319,7 +289,8 @@ SharedPrefManager.putInt("switchTeam",0);
                 int intNewScore = Integer.parseInt(oldScore) - i;
                 tvScoreTeamOne.setText(String.valueOf(intNewScore));
                 tvScoreTeamOneFinal.setText(String.valueOf(intNewScore));
-                SharedPrefManager.putString("TeamOneFinalScore",(String.valueOf(intNewScore)));
+                //Save the num of goals in SharedPref
+                SharedPrefManager.putString("TeamOneFinalScore", (String.valueOf(intNewScore)));
                 SharedPrefManager.putString("TeamOneScore", (String.valueOf(intNewScore)));
 
             }
@@ -330,7 +301,8 @@ SharedPrefManager.putInt("switchTeam",0);
                 int intNewScore = Integer.parseInt(oldScore) + i;
                 tvScoreTeamTwo.setText(String.valueOf(intNewScore));
                 tvScoreTeamTwoFinal.setText(String.valueOf(intNewScore));
-                SharedPrefManager.putString("TeamTwoFinalScore",(String.valueOf(intNewScore)));
+                //Save the num of goals in SharedPref
+                SharedPrefManager.putString("TeamTwoFinalScore", (String.valueOf(intNewScore)));
                 SharedPrefManager.putString("TeamTwoScore", (String.valueOf(intNewScore)));
 
 
@@ -340,25 +312,26 @@ SharedPrefManager.putInt("switchTeam",0);
                 int intNewScore = Integer.parseInt(oldScore) - i;
                 tvScoreTeamTwo.setText(String.valueOf(intNewScore));
                 tvScoreTeamTwoFinal.setText(String.valueOf(intNewScore));
-                SharedPrefManager.putString("TeamTwoFinalScore",(String.valueOf(intNewScore)));
+                //Save the num of goals in SharedPref
+                SharedPrefManager.putString("TeamTwoFinalScore", (String.valueOf(intNewScore)));
                 SharedPrefManager.putString("TeamTwoScore", (String.valueOf(intNewScore)));
-
             }
         }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        //Get Menu item from menu.xml
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.menu, menu);
 
         for (int i = 0; i < menu.size(); i++) {
             MenuItem item = menu.getItem(i);
+            //Change the menu color from toolbar
             SpannableString spanString = new SpannableString(menu.getItem(i).getTitle().toString());
             spanString.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.btn_gr_strat)), 0, spanString.length(), 0); //fix the color to white
             item.setTitle(spanString);
         }
-
         return true;
     }
 
@@ -366,8 +339,8 @@ SharedPrefManager.putInt("switchTeam",0);
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
         switch (item.getItemId()) {
+            //handle menu click event
             case R.id.nav_about:
-                View parentLayout = findViewById(android.R.id.content);
                 Snackbar.make(MainActivity.this.findViewById(android.R.id.content), "Name :- Rushabh Shah \n Student ID :- A00240755", Snackbar.LENGTH_LONG).setAction("Get me a coffee", new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {

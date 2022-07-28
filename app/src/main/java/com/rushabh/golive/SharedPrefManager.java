@@ -2,7 +2,7 @@ package com.rushabh.golive;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-
+//Manage Shared Pref from this class
 public class SharedPrefManager {
     private static boolean isInit = false;
     private static SharedPreferences prefs;
@@ -30,43 +30,20 @@ public class SharedPrefManager {
         editor = prefs.edit();
         isInit = true;
     }
-
-    public static void putBoolean(String key, boolean value) {
-        editor.putBoolean(key, value);
-        editor.commit();
-    }
-
     public static void putString(String key, String value) {
         editor.putString(key, value);
         editor.commit();
     }
-
-    public static void putLong(String key, long value) {
-        editor.putLong(key, value);
-        editor.commit();
-    }
-
     public static void putInt(String key, int value) {
         editor.putInt(key, value);
         editor.commit();
     }
-
-    public static boolean getBoolean(String key, boolean defaultValue) {
-        return prefs.getBoolean(key, defaultValue);
-    }
-
     public static String getString(String key, String defValue) {
         return prefs.getString(key, defValue);
     }
-
     public static int getInt(String key, int defValue) {
         return prefs.getInt(key, defValue);
     }
-
-    public static long getLong(String key, long defValue) {
-        return prefs.getLong(key, defValue);
-    }
-
     public static void RemoveAllData() {
         editor.clear().commit();
     }

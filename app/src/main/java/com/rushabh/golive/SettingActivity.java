@@ -23,9 +23,11 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
+                    //Save the data
                     SharedPrefManager.putInt("Data_save", 0);
                     SharedPrefManager.putInt("switchCheck",0);
                 } else {
+                    //unSave the data
                     SharedPrefManager.putInt("Data_save", 1);
                     SharedPrefManager.putInt("switchCheck",1);
 
@@ -42,6 +44,7 @@ public class SettingActivity extends AppCompatActivity {
     }
 
     private void setSwitchCheck() {
+        //check weather switch is already check or not
         int isCheck = SharedPrefManager.getInt("switchCheck", 1);
         if (isCheck == 0)
         {
@@ -58,6 +61,7 @@ public class SettingActivity extends AppCompatActivity {
 
 
     private void setNightMode() {
+        //Change the theme according to sharedPref
         int isDavaSave = SharedPrefManager.getInt("night_mode", 1);
         if (isDavaSave == 0) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
